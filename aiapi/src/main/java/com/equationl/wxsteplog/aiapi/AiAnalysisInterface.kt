@@ -1,7 +1,6 @@
 package com.equationl.wxsteplog.aiapi
 
 import kotlinx.coroutines.flow.Flow
-
 /**
  * AI分析接口
  * 提供通用的AI分析能力，支持不同模型实现

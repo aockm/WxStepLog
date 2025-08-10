@@ -13,12 +13,16 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.add
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -79,6 +83,19 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.equationl.wxsteplog.constants.Constants
 import com.equationl.wxsteplog.model.StaticsScreenModel
 import com.equationl.wxsteplog.ui.LocalNavController
+import com.equationl.wxsteplog.ui.view.statistics.screen.ChartContent
+import com.equationl.wxsteplog.ui.view.statistics.screen.FilterUser
+import com.equationl.wxsteplog.ui.view.statistics.screen.HeaderFilter
+import com.equationl.wxsteplog.ui.view.statistics.screen.HistoryListItem
+import com.equationl.wxsteplog.ui.view.statistics.screen.HomeContent
+import com.equationl.wxsteplog.ui.view.statistics.screen.ListCardContent
+import com.equationl.wxsteplog.ui.view.statistics.screen.ListContent
+import com.equationl.wxsteplog.ui.view.statistics.screen.ListContentByDetail
+import com.equationl.wxsteplog.ui.view.statistics.screen.ListContentByLog
+import com.equationl.wxsteplog.ui.view.statistics.screen.ListGroupHeader
+import com.equationl.wxsteplog.ui.view.statistics.screen.TopBar
+import com.equationl.wxsteplog.ui.view.statistics.screen.TopBarMoreFunction
+import com.equationl.wxsteplog.ui.view.statistics.screen.UserDropMenu
 import com.equationl.wxsteplog.ui.view.statistics.state.HistoryDataShowType
 import com.equationl.wxsteplog.ui.view.statistics.state.HistoryLogItemModel
 import com.equationl.wxsteplog.ui.view.statistics.state.HistoryStatisticsFilter
@@ -188,6 +205,7 @@ fun HistoryStatisticsScreen(viewModel: HistoryStatisticsViewModel = hiltViewMode
         modifier = Modifier
             .fillMaxSize()
             .nestedScroll(scrollBehavior.nestedScrollConnection),
+        contentWindowInsets = WindowInsets.navigationBars.add(WindowInsets(bottom = 20.dp)),
         topBar = {
             TopBar(
                 showType = state.showType,
@@ -498,9 +516,12 @@ private fun ListContentByLog(
     Column(
         Modifier
             .fillMaxSize()
+            .padding(bottom = 200.dp)
     ) {
         LazyColumn(
-            state = state.listState
+            state = state.listState,
+            contentPadding = PaddingValues(bottom = 20.dp) // 为 LazyColumn 添加底部 padding
+
         ) {
             state.logItemList.forEach { item ->
                 item(key = item.id) {
@@ -523,7 +544,8 @@ private fun ListContentByDetail(
             .fillMaxSize()
     ) {
         LazyColumn(
-            state = state.listState
+            state = state.listState,
+            contentPadding = PaddingValues(bottom = 20.dp) // 为 LazyColumn 添加底部 padding
         ) {
             var lastTitle = ""
 
